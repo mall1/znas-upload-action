@@ -6,8 +6,11 @@ FROM node:16-slim
 RUN apt-get update && apt-get install -y zip git && rm -rf /var/lib/apt/lists/*
 
 # Copy the action repository
-COPY . /app
+COPY ./app /app
 WORKDIR /app
+
+# Ensure entrypoint.sh has executable permissions
+RUN chmod +x /app/entrypoint.sh
 
 # Install Node.js dependencies
 RUN npm install puppeteer --unsafe-perm=true --allow-root
