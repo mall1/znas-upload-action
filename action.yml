@@ -1,21 +1,16 @@
-name: Hello, World!
-description: Greet someone and record the time
-author: GitHub Actions
 
-# Define your inputs here.
+name: Znas Upload
+description: A GitHub Action that uploads files to Znas link using Puppeteer via Docker.
 inputs:
-  who-to-greet:
-    description: Who to greet
+  upload_url:
+    description: The URL to upload files to
     required: true
-    default: World
-
-# Define your outputs here.
-outputs:
-  time:
-    description: The time we greeted you
-
+  upload_file:
+    description: The path of the file to upload
+    required: true
 runs:
   using: docker
   image: Dockerfile
   env:
-    INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
+    UPLOAD_URL: ${{ inputs.upload_url }}
+    UPLOAD_FILE: ${{ inputs.upload_file }}

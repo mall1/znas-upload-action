@@ -1,11 +1,16 @@
-# Set the base image to use for subsequent instructions
-FROM alpine:3.20
 
-# Set the working directory inside the container
-WORKDIR /usr/src
+# Dockerfile for GitHub Docker Action
+FROM node:16-slim
 
-# Copy any source file(s) required for the action
-COPY entrypoint.sh .
+# Install dependencies
+RUN apt-get update && apt-get install -y zip git && rm -rf /var/lib/apt/lists/*
 
-# Configure the container to be run as an executable
-ENTRYPOINT ["/usr/src/entrypoint.sh"]
+# Copy the action repository
+COPY . /app
+WORKDIR /app
+
+# Install Node.js dependencies
+RUN npm install puppeteer --unsafe-perm=true --allow-root
+
+# Entrypoint for the action
+ENTRYPOINT ["/app/entrypoint.sh"]
