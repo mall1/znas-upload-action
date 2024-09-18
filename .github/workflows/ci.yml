@@ -68,7 +68,8 @@ jobs:
         id: test-action
         uses: ./
         with:
-          who-to-greet: Mona Lisa Octocat
+          upload_url: 'https://example.com/upload'  # Modified input
+          upload_file: 'path/to/file.zip'           # Modified input
 
       - name: Print Output
         id: output
