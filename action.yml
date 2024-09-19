@@ -19,3 +19,6 @@ runs:
   env:
     UPLOAD_URL: ${{ inputs.upload_url }}
     UPLOAD_PATH: ${{ inputs.upload_path }}
+branding:
+  icon: upload-cloud
+  color: blue
