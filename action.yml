@@ -10,12 +10,18 @@ inputs:
     description: The path of the folder or file to upload
     required: true
   upload_name:
-    description: The optional name for the uploaded zip file (without extension)
+    description:
+      The optional name for the uploaded zip file or file (without extension)
     required: false
+  add_timestamp_suffix:
+    description:
+      Set to 'true' to add a timestamp to the file name, 'false' to disable
+    required: false
+    default: 'true'
 
 outputs:
   uploaded_file:
-    description: The zip file uploaded
+    description: The zip file or file uploaded
 
 runs:
   using: docker
@@ -24,6 +30,7 @@ runs:
     UPLOAD_URL: ${{ inputs.upload_url }}
     UPLOAD_PATH: ${{ inputs.upload_path }}
     UPLOAD_NAME: ${{ inputs.upload_name }}
+    ADD_TIMESTAMP_SUFFIX: ${{ inputs.add_timestamp_suffix }}
 
 branding:
   icon: upload-cloud

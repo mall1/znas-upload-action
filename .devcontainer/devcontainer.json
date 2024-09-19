@@ -10,5 +10,5 @@
       }
     }
   },
-  "postCreateCommand": "npm install -g prettier && apt-get update && apt-get install -y shellcheck"
+  "postCreateCommand": "npm install -g prettier && apt-get update && apt-get install -y shellcheck shfmt"
 }

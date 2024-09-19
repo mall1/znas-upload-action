@@ -42,12 +42,18 @@ on:
       upload_path:
         description: The path of the folder or file to upload
         required: true
+        default: 'sample-file.txt'
         type: string
       upload_name:
         description:
           The optional name for the uploaded ZIP file (without extension)
         required: false
         type: string
+      add_timestamp_suffix:
+        description:
+          Set to 'true' to add a timestamp to the file name, 'false' to disable
+        required: false
+        default: 'true'
 
 jobs:
   upload-znas:
@@ -55,6 +61,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Create a sample file
+        run: echo "This is a test file for upload" > sample-file.txt
+
       # Change @main to a specific commit SHA or version tag, e.g.:
       # mall1/znas-upload-action@e76147da8e5c81eaf017dede5645551d4b94427b
       # mall1/znas-upload-action@v1.2.3
@@ -64,6 +73,7 @@ jobs:
           upload_url: ${{ inputs.upload_url }}
           upload_path: ${{ inputs.upload_path }}
           upload_name: ${{ inputs.upload_name }}
+          add_timestamp_suffix: ${{ inputs.add_timestamp_suffix }}
 ```
 
 For example workflow runs, check out the
@@ -71,11 +81,12 @@ For example workflow runs, check out the
 
 ## Inputs
 
-| Input         | Default | Description                              |
-| ------------- | ------- | ---------------------------------------- |
-| `upload_url`  | N/A     | The URL to upload files to               |
-| `upload_path` | N/A     | The path of the folder or file to upload |
-| `upload_name` | N/A     | Optional custom name for the ZIP file.   |
+| Input                  | Default | Description                               |
+| ---------------------- | ------- | ----------------------------------------- |
+| `upload_url`           | N/A     | The URL to upload files to.               |
+| `upload_path`          | N/A     | The path of the folder or file to upload. |
+| `upload_name`          | N/A     | Optional custom name for the file.        |
+| `add_timestamp_suffix` | `true`  | `true` to append a timestamp to filename. |
 
 ## Outputs
 
@@ -87,9 +98,11 @@ For example workflow runs, check out the
 
 - **If `upload_path` is a directory**: The directory will be zipped, and the ZIP
   file will either be named using the provided `upload_name` or default to the
-  folder's name with a timestamp.
-- **If `upload_path` is a file**: The file will be uploaded directly, without
-  being zipped. The `upload_name` is ignored in this case.
+  folder's name with or without a timestamp (depending on
+  `add_timestamp_suffix`).
+- **If `upload_path` is a file**: The file will be uploaded directly, with an
+  optional rename using `upload_name` and with or without a timestamp (depending
+  on `add_timestamp_suffix`).
 
 ## Test Locally
 
@@ -119,6 +132,7 @@ need to perform some initial setup steps before you can test your action.
      --env INPUT_UPLOAD_URL="https://example.com/upload" \
      --env INPUT_UPLOAD_PATH="path/to/file" \
      --env INPUT_UPLOAD_NAME="custom_name" \
+     --env INPUT_ADD_TIMESTAMP_SUFFIX="true" \
      mall1/znas-upload-action
    ```
 
@@ -128,6 +142,7 @@ need to perform some initial setup steps before you can test your action.
    echo "INPUT_UPLOAD_URL=\"https://example.com/upload\"" > ./.env.test
    echo "INPUT_UPLOAD_PATH=\"path/to/file\"" >> ./.env.test
    echo "INPUT_UPLOAD_NAME=\"custom_name\"" >> ./.env.test
+   echo "INPUT_ADD_TIMESTAMP_SUFFIX=\"true\"" >> ./.env.test
 
    docker run --env-file ./.env.test mall1/znas-upload-action
    ```
