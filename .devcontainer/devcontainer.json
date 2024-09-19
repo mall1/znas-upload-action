@@ -1,0 +1,14 @@
+{
+  "name": "Node.js 22, Prettier & ShellCheck",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "customizations": {
+    "vscode": {
+      "extensions": ["esbenp.prettier-vscode", "timonwong.shellcheck"],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "postCreateCommand": "npm install -g prettier && apt-get update && apt-get install -y shellcheck"
+}
