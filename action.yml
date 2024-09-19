@@ -9,6 +9,10 @@ inputs:
   upload_path:
     description: The path of the folder or file to upload
     required: true
+  upload_name:
+    description: The optional name for the uploaded zip file (without extension)
+    required: false
+
 outputs:
   uploaded_file:
     description: The zip file uploaded
@@ -19,6 +23,8 @@ runs:
   env:
     UPLOAD_URL: ${{ inputs.upload_url }}
     UPLOAD_PATH: ${{ inputs.upload_path }}
+    UPLOAD_NAME: ${{ inputs.upload_name }}
+
 branding:
   icon: upload-cloud
   color: blue
