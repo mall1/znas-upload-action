@@ -69,8 +69,8 @@ jobs:
         uses: ./
         with:
           upload_url: https://example.com/upload
-          upload_file: path/to/file.zip
+          upload_path: ./
 
       - name: Print Output
         id: output
-        run: echo "${{ steps.test-action.outputs.file }}"
+        run: echo "${{ steps.test-action.outputs.uploaded_file }}"
