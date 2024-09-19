@@ -68,9 +68,9 @@ jobs:
         id: test-action
         uses: ./
         with:
-          upload_url: 'https://example.com/upload'  # Modified input
-          upload_file: 'path/to/file.zip'           # Modified input
+          upload_url: https://example.com/upload
+          upload_file: path/to/file.zip
 
       - name: Print Output
         id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+        run: echo "${{ steps.test-action.outputs.file }}"

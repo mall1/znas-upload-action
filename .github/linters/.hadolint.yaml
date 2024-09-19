@@ -1,0 +1,5 @@
+failure-threshold: warning
+
+ignored:
+  - DL3008 # Skip apt-get install version pinning check
+  - DL3016 # Skip npm install version pinning check
