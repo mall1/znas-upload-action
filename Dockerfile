@@ -1,5 +1,5 @@
 # Dockerfile for GitHub Docker Action
-FROM node:22-slim
+FROM node:23-slim
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
